@@ -41,48 +41,50 @@ Node *addNode(Node *root, int value)
 
 Node *removeNode(Node *root, int value)
 {
+  if(root->value == value){ 
+   // printf("%d found\n", value);
+    if(root->left == NULL && root->right == NULL){ // 0 children
+        printf("%d is deleted\n", root->value);
+        Node * temp = root;
+        free(root);
+        return temp;
+    }
+    else if(root->right == NULL){ // 1 child left
+        printf("%d is deleted\n", root->value);
+        Node * temp = root->left;
+        free(root);
+        return temp;
+    }
+    else if(root->left == NULL){ // 1 child right
+        printf("%d is deleted\n", root->value);
+        Node * temp = root->right;
+        free(root);
+        return temp;
+    }
+    
+    else{
+      // 2 children
+    }
 
-  if (root->right->value == value)
-  {
-
-    if (root->right->left == NULL)
-    {
-    }
-    else if (root->right->right == NULL)
-    {
-    }
-    else if (root->right->left == NULL || root->right->right == NULL)
-    {
-    }
-    else
-    {
-      int temp = root->right->value;
-      root->right->left->right = root->right->right;
-      root->right = root->right->left;
-      printf("%d removed\n", temp);
-    }
+    
   }
-  else if (root->left->value == value)
-  {
+  else if (value > root->value && root->left != NULL){
+    removeNode(root->left,value);
   }
-  else if (root->value == value)
-  {
+  else if(value < root->value && root->right != NULL){
+    removeNode(root->right,value);
   }
-  else if (root->value > value)
-  {
-    // move down to the left
-  }
-  else if (root->value < value)
-  {
-    // move down to the right
+  else{
+    return root;
   }
   return root;
+ 
 }
 
 void displaySubtree(Node *N)
 {
 
-  if (N != NULL)
+  if (N != NULL && N->value !=0)
   {
     displaySubtree(N->right);
     printf("%d\n", N->value);
@@ -90,6 +92,7 @@ void displaySubtree(Node *N)
   }
   else
   {
+
   }
 }
 
@@ -180,9 +183,10 @@ Node *searchBST(Node *root, int value)
   {
     return NULL;
   }
-  return NULL;
+  //return NULL;
 }
 
+//int smallestvalue
 int main()
 {
   Node *n, *b;
@@ -195,8 +199,8 @@ int main()
   n = addNode(n, 2);
   // n = addNode(n, 4);
   n = addNode(n, 5);
-  n = addNode(n, 10);
-  b = addNode(NULL, 5);
+ // n = addNode(n, 10);
+ // b = addNode(NULL, 5);
   /*
   n = addNode(n, 10);
   n = addNode(n, 23490873);
@@ -213,11 +217,14 @@ int main()
   // printf("%d\n", n->right->value);
   // printf("%d\n", n->right->right->value);
   // printf("%d", n->right->left->value);
-  // displaySubtree(n);
-   printf("%d depth\n", nodeDepth(n, b));
-  // printf("Found: %d", numberLeaves(n));
 
-  free(n);
+  // displaySubtree(n);
+  // printf("%d depth\n", nodeDepth(n, b));
+   //printf("Found: %d", numberLeaves(n));
+ // n = removeNode(n,10);
+  n = removeNode(n,9);
+  //displaySubtree(n);
+  //free(n);
 
   return 0;
 }
