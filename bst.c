@@ -214,7 +214,7 @@ int main()
   // printf("%d\n", n->right->right->value);
   // printf("%d", n->right->left->value);
   // displaySubtree(n);
-  // printf("%d depth\n", nodeDepth(n, b));
+   printf("%d depth\n", nodeDepth(n, b));
   // printf("Found: %d", numberLeaves(n));
 
   free(n);
